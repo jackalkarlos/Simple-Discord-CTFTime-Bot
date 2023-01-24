@@ -76,6 +76,6 @@ async def gunluk(message):
 			else:
 				break
 		await message.channel.send(ozyazim)
-		await asyncio.sleep(30)
+		await asyncio.sleep(86400)
 
 bot.run("")
