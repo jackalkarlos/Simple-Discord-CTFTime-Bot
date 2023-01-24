@@ -40,8 +40,6 @@ async def on_message(message):
 			else:
 				break
 		await message.channel.send(ozyazim)
-	elif message.content == "alpere küfret":
-		await message.channel.send("Pis çocuk Alper!")
 	elif message.content == "!baslat":
 		await gunluk(message)
 	elif message.content == "!durdur":
