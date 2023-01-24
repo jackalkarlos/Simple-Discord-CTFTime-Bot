@@ -18,35 +18,38 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-	if message.content == "!ctfcheck":
-		ctfs = []
-		ozyazim=""
-		url = "https://ctftime.org/event/list/upcoming"
-		headers= {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
-		}
-		response = requests.get(url,headers=headers)
-		soup = BeautifulSoup(response.content, "html.parser")
-		rows = soup.find_all("tr")
-		for row in rows:
-			cells = row.find_all("td")
-			if len(cells) >= 1:
-				ctf_name = cells[0].find("a").text
-				ctf_date = cells[1].text
-				ctfs.append({"name": ctf_name, "date": ctf_date})
-		for i,ctf in enumerate(ctfs):
-			if i<5:
-				ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
-			else:
-				break
-		await message.channel.send(ozyazim)
-	elif message.content == "!baslat":
-		await gunluk(message)
-	elif message.content == "!durdur":
-		await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
-		global calistirildi
-		calistirildi = False
-
+	if message.content[0] == "!":
+		icerik = message.content[1:]
+		if icerik == "ctfcheck":
+			ctfs = []
+			ozyazim=""
+			url = "https://ctftime.org/event/list/upcoming"
+			headers= {
+        	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+			}
+			response = requests.get(url,headers=headers)
+			soup = BeautifulSoup(response.content, "html.parser")
+			rows = soup.find_all("tr")
+			for row in rows:
+				cells = row.find_all("td")
+				if len(cells) >= 1:
+					ctf_name = cells[0].find("a").text
+					ctf_date = cells[1].text
+					ctfs.append({"name": ctf_name, "date": ctf_date})
+			for i,ctf in enumerate(ctfs):
+				if i<5:
+					ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
+				else:
+					break
+			await message.channel.send(ozyazim)
+		elif icerik == "baslat":
+			await gunluk(message)
+		elif icerik == "durdur":
+			await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
+			global calistirildi
+			calistirildi = False
+		else:
+			await message.channel.send("Sanırsam tanımsız bir komut çalıştırdın, tekrar dener misin?")
 @bot.event
 async def gunluk(message):
 	global calistirildi
