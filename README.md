@@ -10,4 +10,5 @@ Simple Upcoming CTF's Check Bot<br>
 3. !settings komutu.<br>
 4. Gün içinde mesajın yollanacağı saat ayarlanabilmeli.<br>
 5. CTF Reminder.<br>
-6. CTF Random Meme Generator.<br></h3>
+6. CTF Random Meme Generator.<br>
+7. Base64 Decoder.</h3> 
