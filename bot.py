@@ -2,19 +2,22 @@ import discord
 import requests
 from bs4 import BeautifulSoup
 
-bot = discord.Client(intents=discord.Intents.default())
+#bot = discord.Client(intents=discord.Intents.default())
+intents = discord.Intents.default()
+intents.message_content = True
 
+bot= discord.Client(intents=intents)
 @bot.event
 async def on_ready():
 	guild_count = 0
 	for guild in bot.guilds:
 		print(f"- {guild.id} (name: {guild.name})")
 		guild_count = guild_count + 1
-	print("SampleDiscordBot is in " + str(guild_count) + " guilds.")
+	print("DiscordBot is in " + str(guild_count) + " guilds.")
 
 @bot.event
 async def on_message(message):
-	if message.content == "ctfcheck":
+	if message.content == "!ctfcheck":
                  ctfs = []
                  ozyazim=""
                  url = "https://ctftime.org/event/list/upcoming"
@@ -36,8 +39,7 @@ async def on_message(message):
                         ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
                     else:
                         break
+                 await message.channel.send(ozyazim)
 
-	await message.channel.send(ozyazim)
 
-
-bot.run("enter your token here")
+bot.run("")
