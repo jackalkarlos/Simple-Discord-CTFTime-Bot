@@ -2,6 +2,7 @@ import discord
 import requests
 from bs4 import BeautifulSoup
 import asyncio
+import base64
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -48,6 +49,15 @@ async def on_message(message):
 			await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
 			global calistirildi
 			calistirildi = False
+		elif icerik.split()[0] == "base64decode":
+			try:
+				b64und = icerik.split()
+				b64 = b64und[1]
+				decodedstring = base64.b64decode(b64)
+				s = decodedstring.decode()
+				await message.channel.send(s)
+			except:
+				await message.channel.send("İşlem başarısız oldu, gönderdiğiniz mesajı kontrol edin!")
 		else:
 			await message.channel.send("Sanırsam tanımsız bir komut çalıştırdın, tekrar dener misin?")
 @bot.event
@@ -76,6 +86,6 @@ async def gunluk(message):
 			else:
 				break
 		await message.channel.send(ozyazim)
-		await asyncio.sleep(86400)
+		await asyncio.sleep(30)
 
 bot.run("")
