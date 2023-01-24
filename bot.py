@@ -58,6 +58,14 @@ async def on_message(message):
 				await message.channel.send(s)
 			except:
 				await message.channel.send("İşlem başarısız oldu, gönderdiğiniz mesajı kontrol edin!")
+		elif icerik.split()[0] == "base64encode":
+			try:
+				decodedstring = (' '.join(icerik.split()[1:]))
+				base64_bytes = base64.b64encode(decodedstring.encode())
+				base642 = base64_bytes.decode()
+				await message.channel.send(base642)
+			except:
+				await message.channel.send("İşlem başarısız oldu, gönderdiğiniz mesajı kontrol edin!")
 		else:
 			await message.channel.send("Sanırsam tanımsız bir komut çalıştırdın, tekrar dener misin?")
 @bot.event
