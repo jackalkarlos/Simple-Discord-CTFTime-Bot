@@ -1,8 +1,8 @@
 import discord
 import requests
 from bs4 import BeautifulSoup
+import asyncio
 
-#bot = discord.Client(intents=discord.Intents.default())
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -40,6 +40,41 @@ async def on_message(message):
 			else:
 				break
 		await message.channel.send(ozyazim)
+	elif message.content == "alpere küfret":
+		await message.channel.send("Pis çocuk Alper!")
+	elif message.content == "!baslat":
+		await gunluk(message)
+	elif message.content == "!durdur":
+		await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
+		global calistirildi
+		calistirildi = False
 
+@bot.event
+async def gunluk(message):
+	global calistirildi
+	calistirildi = True
+	while calistirildi == True:
+		ctfs = []
+		ozyazim = ""
+		url = "https://ctftime.org/event/list/upcoming"
+		headers = {
+			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+		}
+		response = requests.get(url, headers=headers)
+		soup = BeautifulSoup(response.content, "html.parser")
+		rows = soup.find_all("tr")
+		for row in rows:
+			cells = row.find_all("td")
+			if len(cells) >= 1:
+				ctf_name = cells[0].find("a").text
+				ctf_date = cells[1].text
+				ctfs.append({"name": ctf_name, "date": ctf_date})
+		for i, ctf in enumerate(ctfs):
+			if i < 5:
+				ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
+			else:
+				break
+		await message.channel.send(ozyazim)
+		await asyncio.sleep(30)
 
 bot.run("")
