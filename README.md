@@ -5,7 +5,7 @@ Simple Upcoming CTF's Check Bot<br>
 ![image](https://user-images.githubusercontent.com/88983987/214136149-d88d8e12-326e-4ef9-a16e-41264b614b9f.png)
 
 # To Do List:
-<h3>1- !baslat ve !durdur komutlarını sadece adminler kullanabilmeli. Ekstra bir seçenek olarak adminler bunu yönetebilmeli.<br>
+<h3><strike>1- !baslat ve !durdur komutlarını sadece adminler kullanabilmeli.</strike><br>
 2. !help komutu eklenecek.<br>
 3. !settings komutu.<br>
 4. Gün içinde mesajın yollanacağı saat ayarlanabilmeli.<br>
