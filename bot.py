@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import asyncio
 import base64
+import random
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -43,12 +44,16 @@ async def on_message(message):
 				else:
 					break
 			await message.channel.send(ozyazim)
+#		elif icerik =="alpereküfret":
+#			await message.channel.send("Pis Çocuk Alper!")
 		elif icerik == "baslat":
 			await gunluk(message)
 		elif icerik == "durdur":
 			await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
 			global calistirildi
 			calistirildi = False
+		elif icerik == "ctfmemegenerator":
+			await message.channel.send(file=discord.File(random.choice(('memes/1.JPG', 'memes/2.JPG', 'memes/3.JPG', 'memes/4.PNG', 'memes/5.png', 'memes/6.jpg','memes/7.png','memes/8.png','memes/9.jpg','memes/10.jpg','memes/11.jpg','memes/12.jpg','memes/13.jpg','memes/14.png','memes/15.jpg','memes/16.png','memes/17.jpg','memes/18.jpg'))))
 		elif icerik.split()[0] == "base64decode":
 			try:
 				b64und = icerik.split()
