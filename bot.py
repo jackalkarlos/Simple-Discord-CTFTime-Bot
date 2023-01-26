@@ -19,7 +19,8 @@ async def on_ready():
 	for guild in bot.guilds:
 		print(f"- {guild.id} (name: {guild.name})")
 		guild_count = guild_count + 1
-	print("DiscordBot is in " + str(guild_count) + " guilds.")
+	print("CTFTime Bot is in " + str(guild_count) + " guilds.")
+
 @bot.event
 async def on_message(message):
 	global prefix
@@ -48,11 +49,17 @@ async def on_message(message):
 					break
 			await message.channel.send(ctflist)
 		elif icerik == "baslat":
-			await gunluk(message)
+			if message.author.guild_permissions.administrator:
+				await gunluk(message)
+			else:
+				await message.channel.send("Bunun için yetkin yok!")
 		elif icerik == "durdur":
-			await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
-			global calistirildi
-			calistirildi = False
+			if message.author.guild_permissions.administrator:
+				await message.channel.send("Bu sunucu için günlük mesaj gönderimini durdurdum.")
+				global calistirildi
+				calistirildi = False
+			else:
+				await message.channel.send("Bunun için yetkin yok!")
 		elif icerik == "ctfmemegenerator":
 			await message.channel.send(file=discord.File(random.choice(('memes/1.JPG', 'memes/2.JPG', 'memes/3.JPG', 'memes/4.PNG', 'memes/5.png', 'memes/6.jpg','memes/7.png','memes/8.png','memes/9.jpg','memes/10.jpg','memes/11.jpg','memes/12.jpg','memes/13.jpg','memes/14.png','memes/15.jpg','memes/16.png','memes/17.jpg','memes/18.jpg'))))
 		elif icerik.split()[0] == "base64decode":
