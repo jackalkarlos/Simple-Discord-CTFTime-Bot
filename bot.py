@@ -5,6 +5,9 @@ import asyncio
 import base64
 import random
 
+global prefix
+prefix = "!"
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -17,14 +20,14 @@ async def on_ready():
 		print(f"- {guild.id} (name: {guild.name})")
 		guild_count = guild_count + 1
 	print("DiscordBot is in " + str(guild_count) + " guilds.")
-
 @bot.event
 async def on_message(message):
-	if message.content[0] == "!":
+	global prefix
+	if message.content[0] == prefix:
 		icerik = message.content[1:]
 		if icerik == "ctfcheck":
 			ctfs = []
-			ozyazim=""
+			ctflist=""
 			url = "https://ctftime.org/event/list/upcoming"
 			headers= {
         	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
@@ -40,12 +43,10 @@ async def on_message(message):
 					ctfs.append({"name": ctf_name, "date": ctf_date})
 			for i,ctf in enumerate(ctfs):
 				if i<5:
-					ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
+					ctflist = ctflist + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
 				else:
 					break
-			await message.channel.send(ozyazim)
-#		elif icerik =="alpereküfret":
-#			await message.channel.send("Pis Çocuk Alper!")
+			await message.channel.send(ctflist)
 		elif icerik == "baslat":
 			await gunluk(message)
 		elif icerik == "durdur":
@@ -63,6 +64,12 @@ async def on_message(message):
 				await message.channel.send(s)
 			except:
 				await message.channel.send("İşlem başarısız oldu, gönderdiğiniz mesajı kontrol edin!")
+		elif icerik.split()[0] == "changeprefix":
+			try:
+				prefix=(' '.join(icerik.split()[1:]))
+				await message.channel.send("Prefix " + prefix + " ile değiştirilmiştir.")
+			except:
+				await message.channel.send("Acayip bi hata oluştu???")
 		elif icerik.split()[0] == "base64encode":
 			try:
 				decodedstring = (' '.join(icerik.split()[1:]))
@@ -79,7 +86,7 @@ async def gunluk(message):
 	calistirildi = True
 	while calistirildi == True:
 		ctfs = []
-		ozyazim = ""
+		ctflist = ""
 		url = "https://ctftime.org/event/list/upcoming"
 		headers = {
 			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
@@ -95,10 +102,10 @@ async def gunluk(message):
 				ctfs.append({"name": ctf_name, "date": ctf_date})
 		for i, ctf in enumerate(ctfs):
 			if i < 5:
-				ozyazim = ozyazim + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
+				ctflist = ctflist + "CTF Name: " + ctf["name"] + "\n" + "CTF Date: " + ctf["date"] + "\n\n"
 			else:
 				break
-		await message.channel.send(ozyazim)
+		await message.channel.send(ctflist)
 		await asyncio.sleep(86400)
 
 bot.run("")
