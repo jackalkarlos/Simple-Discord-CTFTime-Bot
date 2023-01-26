@@ -62,6 +62,10 @@ async def on_message(message):
 				await message.channel.send("Bunun için yetkin yok!")
 		elif icerik == "ctfmemegenerator":
 			await message.channel.send(file=discord.File(random.choice(('memes/1.JPG', 'memes/2.JPG', 'memes/3.JPG', 'memes/4.PNG', 'memes/5.png', 'memes/6.jpg','memes/7.png','memes/8.png','memes/9.jpg','memes/10.jpg','memes/11.jpg','memes/12.jpg','memes/13.jpg','memes/14.png','memes/15.jpg','memes/16.png','memes/17.jpg','memes/18.jpg'))))
+		elif icerik == "help":
+			help_message = "Merhaba, nasıl yardımcı olabilirim?"
+			await message.author.send(help_message)
+			await message.channel.send("Sana özelden komutların bir listesini gönderdim.")
 		elif icerik.split()[0] == "base64decode":
 			try:
 				b64und = icerik.split()
