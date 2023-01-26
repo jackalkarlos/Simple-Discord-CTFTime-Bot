@@ -12,4 +12,6 @@ Simple Upcoming CTF's Check Bot<br>
 5. CTF Reminder.<br>
 <strike>6. CTF Random Meme Generator.</strike><br>
 <strike>7. Base64 Encoder and Decoder.</strike><br>
-<strike>8. Prefix Changer</strike><br></h3> 
+<strike>8. Prefix Changer</strike><br>
+9. Check Perms for Bot</h3>
+
